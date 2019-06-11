@@ -1,0 +1,189 @@
+#########################################################
+#
+#     网页自学版本(不需要看视频)
+#     最新Django2.0.1在线教育零基础到上线教程                        
+#     https:#www.imooc.com/article/45524
+#
+#########################################################
+#
+#     环境说明
+#     数据库root / root
+#     python3 没有mysql-client,使用pymysql Mxonline3中的__init__文件中写入
+#     import pymysql
+#     pymysql.install_as_MySQLdb()
+#
+#     C:\Users\lx>python
+#     Python 3.7.1 (v3.7.1:260ec2c36a, Oct 20 2018, 14:57:15) [MSC v.1915 64 bit (AMD64)] on win32
+#     Type "help", "copyright", "credits" or "license" for more information.
+#     >>> exit()
+#
+#     C:\Users\lx>workon django  在虚拟环境中跑 有依赖包
+#     (django) C:\Users\lx>pip list
+#     (django) E:\强力Django 和杀手级xadmin\Mxonline3-master>python version
+#     (django) E:\强力Django 和杀手级xadmin\Mxonline3-master>python manage.py migrate  生成数据表
+#     (django) E:\强力Django 和杀手级xadmin\Mxonline3-master>python manage.py makemigrations 每次后台数据库添加数据后执行保证同步
+#     (django) E:\强力Django 和杀手级xadmin\Mxonline3-master>python manage.py runserver
+#     (django) E:\强力Django 和杀手级xadmin\Mxonline3-master>python manage.py createsuperuser
+#              r-t 1-6 243@
+#
+#     Tools > Run manage.py Task
+#     每次更新表 先makemigrations 再migrate
+########################################################
+https:#www.jianshu.com/p/02cbb1b96c8f  修改过
+/Users/lib/python3.7/site-packages/django/forms/boundfield.py in as_widget, line 93
+
+
+部署到云docker
+微服务   RestFul api
+中台
+高并发
+分布式
+
+通过admin数据库增加一个城市 然后html 语法去取出来展示还是views语法取出来?
+views 跟 数据库 跟html的运作关系
+
+xadmin 图片上传 models指定上传到哪个目录
+models 与数据库运作关系
+models 规定数据有哪些字段 views决定哪些字段需要取出来 然后传给html展示出来
+
+form  modelform 区别
+
+django ORM 用法   机制
+django html python语法
+
+Ajax request返回是json
+页面表单提交;收藏与取消收藏;发表评论等 有时html中用到异步Ajax request，并不需要刷新页面 只需返回一个json 提示
+使用场景:手机用户对课程的喜好信息,收藏表单
+收藏  org_base.html(js)   course-detail.html(js)
+# 取消收藏的机构,讲师,课程是 usercenter-base.html 中的js代码
+# 点击取消按钮后 jQuery 向organization.views.AddFavView 接口发送一个请求取消收藏
+
+# 前端页面表面看到是一个图片实际是一个数据库拿出来的model对象，具有相应的属性
+# 因此点击时候jQuery会通过前端语法将对象的相应属性获取放到request中向url/org/add_fav/发起请求
+# 请求url匹配到/org/add_fav/后进入organization.views.AddFavView()进行处理
+
+
+外键       类名_set
+choices    get_类名_display
+name__in
+name__icontains  两个下划线
+
+# course_set 外键  类名_set使用场景
+# courses.models.py Course类中有teacher这个外键,所以在organization.models.py
+# 中的Teacher类中通过course_set获取老师所讲的课程
+# def get_course_nums(self):
+#     return self.course_set.all().count()
+
+
+
+什么时候有get请求  返回页面
+什么时候有get   post可以不返回页面 只返回json     请求都有
+views中方法只能叫def get() def post()吗
+
+运行过程 点击 url 里的course_id怎么js传到 views函数   info/(?P<course_id>\d+)/ 前端给？？
+到底先url还是先view
+
+网络通信
+
+
+csrftoken
+sessionid
+
+表名.object.get() 只取一条 0或多条时报错
+表名.object.filter() 取出满足条件的所有
+
+int（s） 快捷键
+
+普通版本的form 区别
+进阶版本的modelform：它可以向model一样save
+
+
+
+#  涉及courses/views.py  organization/views.py
+# 【首页(base.html)顶部搜索栏搜索】方法执行过程
+#  三要素( 点击页面 | 触发js代码 | 将要发送请求的url ) (base.html | deco-common.js | request_url)
+#  js前端代码执行 --> 后端处理函数执行 --> js前端代码执行
+第一步:
+    ajax代码在base.html里的deco-common.js 中的function search_click()函数
+    用户在base.html  (base.html中有deco-common.js)
+    中输入关键词以后js进行ajax处理,拼接url,然后发起一个相应ajax request请求, 请求中包含keywords
+
+    js代码看到"course"就拼接出  request_url = "/course/list?keywords="+keywords,并向它发送请求
+    js代码看到"teacher"就拼接出 request_url = "/org/teacher/list?keywords="+keywords,并向它发送请求
+    js代码看到"org"就拼接出     request_url = "/org/list?keywords="+keywords,并向它发送请求
+第二步:
+    urls控制器匹配到/course/list就进入courses app下的CourseListView处理函数中, 执行搜索功能的部分,
+    具体是all_course.filter去数据库中过滤拿到符合要求的数据展示
+
+    urls控制器匹配到/org/teacher/list就进入organization app下的TeacherListView处理函数中, 执行搜索功能的部分,
+    具体是all_teacher.filter去数据库中过滤拿到符合要求的数据展示
+
+    urls控制器匹配到/org/list就进入organization app下的OrgView处理函数中, 执行搜索功能的部分,
+    具体是all_orgs.filter去数据库中过滤拿到符合要求的数据展示
+第三步:
+    js代码根据处理函数返回的结果进行异步alert或者reload等
+
+
+
+# course-comment.html中的一段【关于发表评论】的js代码
+# js代码里的url:"{% url 'course:add_comment' %}"这一条是什么作用:  需要了解一下ajax知识
+#
+# 第一步:
+# 在course-comment.html页面点击发表评论按钮,js代码发挥作用,Ajax向url:/course/add_comment/,
+# 发起一个带着comment内容的post request请求
+# (此处为什么发起request请求,但url栏url地址没变成url 'course:add_comment,我猜是ajax是异步请求所以
+# url栏url地址不会变)
+#
+# 第二步:
+# urls控制器匹配到path('add_comment/', AddCommentsView.as_view(), name="add_comment"),
+# 接下来去执行AddCommentsView处理函数,从请求中获取comment内容,
+#
+# 第三步:
+# js代码根据处理函数返回的结果进行异步alert或者reload等
+
+
+
+
+
+# base.html中
+# <li  {% ifequal  '/course' request.path|slice:":7" %} class="active"
+# 全局active逻辑
+# 如果request.path的前7位是/course就将课程标签active
+# 如果request.path的前4位是/org就将机构标签active
+# 如果request.path的前8位是/teacher就将讲师标签active
+
+# base.html usercenter-base.html org_base.html 相同前端逻辑
+# 全局内容显示逻辑
+# 登录显示用户相关个性化内容
+# 未登录显示登录注册
+
+搜索不需要elesearch 那个库？
+
+uwsgi
+nginx
+rabbitMQ
+
+json.dumps() 转成json??
+
+【分页功能】views处理部分和相应html部分都需要修改代码
+users.views.MyMessageView             usercenter-message.html
+organization.views.OrgView            org-list.html
+organization.views.TeacherListView    teachers-list.html
+course.views.CourseListView           course-list.html
+
+
+一般流程是先有个大概的html页面 -->然后配urls -->写views之前在views中导入models，会对数据库进行
+查get/filter,增save等操作-->-->
+
+每个html页面都有一个request变量,可以request.user然后。。。
+后台xadmin添加数据直接添加到数据库
+views函数.save()添加也加到数据库
+
+
+forloop
+<li class="{% if forloop.counter|divisibleby:'5' %}five{% endif %}">  除
+<div class="module1_{{ forloop.counter|add:2 }} box"> 加
+
+
+HttpResponseRedirect(reverse("index"))                        导向url然后views函数处理后返回页面
+render(request, "login.html", {"redirect_url": redirect_url}) 直接返回页面,如果带参数的话会渲染到页面
