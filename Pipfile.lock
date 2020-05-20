@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "118152205ae0b5a5985b23ebae5c40b79a7077b0d79c329bf1df9e0cd891a1b8"
+            "sha256": "37c8b13bf61ea3f0e86605bacb4a9110199039fbb1165e49ee9783aefca2fcec"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -21,6 +21,7 @@
                 "sha256:24d7f2f94f7f3cb6061acb215685e5125fbcdc40a857eff9de22518820b0a4f4",
                 "sha256:702a91ade2968a82beb0db1e0766a6a273f33d4616a6ce8cde475d8e09853b20"
             ],
+            "index": "pypi",
             "version": "==0.5.0"
         },
         "diff-match-patch": {
@@ -107,10 +108,11 @@
         },
         "httplib2": {
             "hashes": [
-                "sha256:f61fb838a94ce3b349aa32c92fd8430f7e3511afdb18bf9640d647e30c90a6d6"
+                "sha256:4f6988e6399a2546b525a037d56da34aed4d149bbdc0e78523018d5606c26e74",
+                "sha256:b0e1f3ed76c97380fe2485bc47f25235453b40ef33ca5921bb2897e257a49c4c"
             ],
             "index": "pypi",
-            "version": "==0.12.0"
+            "version": "==0.18.0"
         },
         "jdcal": {
             "hashes": [
@@ -179,6 +181,14 @@
             "index": "pypi",
             "version": "==5.3.0"
         },
+        "pymysql": {
+            "hashes": [
+                "sha256:3943fbbbc1e902f41daf7f9165519f140c4451c179380677e6a848587042561a",
+                "sha256:d8c059dcd81dedb85a9f034d5e22dcb4442c0b201908bede99e306d65ea7c8e7"
+            ],
+            "index": "pypi",
+            "version": "==0.9.3"
+        },
         "pytz": {
             "hashes": [
                 "sha256:31cb35c89bd7d333cd32c5f278fca91b523b0834369e757f4c5641ea252236ca",
@@ -211,6 +221,13 @@
             ],
             "index": "pypi",
             "version": "==1.12.0"
+        },
+        "slugify": {
+            "hashes": [
+                "sha256:c5703cc11c1a6947536f3ce8bb306766b8bb5a84a53717f5a703ce0f18235e4c"
+            ],
+            "index": "pypi",
+            "version": "==0.0.1"
         },
         "tablib": {
             "hashes": [
